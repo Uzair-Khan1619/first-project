@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "name": "Lily Bouquet",
+    "category": "Bouquets",
+    "price": 400,
+    "description": "Handmade crochet lily bouquet in pastel shades.",
+    "image": "/static/Images/lily-bouquet.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Tulip + Lily Bouquet",
+    "category": "Bouquets",
+    "price": 600,
+    "description": "Handmade crochet tulip and lily bouquet in pastel shades.",
+    "image": "/static/Images/tulip-lily-bouquet.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Rose + Tulip Bouquet",
+    "category": "Bouquets",
+    "price": 600,
+    "description": "Handmade crochet rose and tulip bouquet.",
+    "image": "/static/Images/rose-tulip-bouquet.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Chocolate Bouquet",
+    "category": "Bouquets",
+    "price": 400,
+    "description": "Handmade chocolate bouquet.",
+    "image": "/static/Images/chocolate-bouquet.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Phone Case",
+    "category": "Cases",
+    "price": 350,
+    "description": "Cute handmade crochet phone case.",
+    "image": "/static/Images/phone-case.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Crochet T-Shirt",
+    "category": "T-Shirts",
+    "price": 1200,
+    "description": "Premium handmade crochet t-shirt.",
+    "image": "/static/Images/crochet-tshirt.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Rose Keychain",
+    "category": "Keychains",
+    "price": 150,
+    "description": "Mini crochet rose keychain.",
+    "image": "/static/Images/rose-keychain.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Letter Keychain",
+    "category": "Keychains",
+    "price": 150,
+    "description": "Cute handmade letter keychain.",
+    "image": "/static/Images/letter-keychain.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Pearl Gajra",
+    "category": "Gajras",
+    "price": 180,
+    "description": "Elegant pearl crochet gajra.",
+    "image": "/static/Images/pearl-gajra.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Rose Bag",
+    "category": "Bags",
+    "price": 999,
+    "description": "Luxury crochet rose bag.",
+    "image": "/static/Images/rose-bag.jpg"
+  },
+  {
+    "id": 11,
+    "name": "Bow Clip",
+    "category": "Clips",
+    "price": 180,
+    "description": "Handmade crochet bow clip in pastel shades.",
+    "image": "/static/Images/bow-clip.jpg"
+  }
+]

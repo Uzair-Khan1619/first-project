@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Shop | crochetttcharm{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <h1>Our Handmade Collection ✨</h1>
+    <p>Premium crochet bouquets, bags, keychains & accessories.</p>
+</section>
+
+<div class="product-grid">
+
+    {% for product in products %}
+
+    <div class="product-card">
+
+        <img src="{{ product.image }}" alt="{{ product.name }}">
+
+        <div class="product-info">
+
+            <h2>{{ product.name }}</h2>
+
+            <p>{{ product.description }}</p>
+
+            <div class="price">
+                ₹{{ product.price }}
+            </div>
+
+            <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
+
+                <button class="btn">
+                    Add To Cart
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

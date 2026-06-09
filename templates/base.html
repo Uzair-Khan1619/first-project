@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to crochetttcharm - your boutique for beautiful, handmade, premium crochet bouquets, hampers, and keychains stitched with love.">
+    <title>{% block title %}crochetttcharm | Handmade Crochet & Hampers Boutique{% endblock %}</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://img.icons8.com/color/48/crochet.png">
+    <!-- Google Fonts & Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+    <!-- Sticky Navigation Header -->
+    <nav class="navbar" id="mainNavbar">
+        <div class="navbar-container">
+            <a href="{{ url_for('home') }}" class="navbar-logo" id="navLogo">
+                <span>🧶</span> crochetttcharm
+            </a>
+            
+            <ul class="navbar-menu">
+                <li>
+                    <a href="{{ url_for('home') }}" class="navbar-link {% if request.path == '/' %}active{% endif %}" id="navLinkHome">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('shop') }}" class="navbar-link {% if request.path == '/shop' %}active{% endif %}" id="navLinkShop">
+                        Shop Catalog
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('admin') }}" class="navbar-link {% if request.path == '/admin' %}active{% endif %}" id="navLinkAdmin">
+                        Admin Panel
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('cart') }}" class="navbar-cart {% if request.path == '/cart' %}active{% endif %}" id="navLinkCart">
+                        <i data-lucide="shopping-basket" style="width: 18px; height: 18px;"></i>
+                        <span>Basket</span>
+                        {% if cart_count() > 0 %}
+                            <span class="cart-count-badge" id="cartCountBadge">{{ cart_count() }}</span>
+                        {% endif %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Flash Message Banner Notifications -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container" id="flashMessageContainer">
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}" id="flash_{{ loop.index }}">
+                        <span class="flash-text">
+                            {% if category == 'success' %}
+                                <i data-lucide="check-circle" style="display:inline-block; vertical-align:middle; margin-right:8px; width:18px; height:18px;"></i>
+                            {% elif category == 'info' %}
+                                <i data-lucide="info" style="display:inline-block; vertical-align:middle; margin-right:8px; width:18px; height:18px;"></i>
+                            {% else %}
+                                <i data-lucide="alert-triangle" style="display:inline-block; vertical-align:middle; margin-right:8px; width:18px; height:18px;"></i>
+                            {% endif %}
+                            {{ message }}
+                        </span>
+                        <button class="flash-close" onclick="document.getElementById('flash_{{ loop.index }}').style.display='none'">&times;</button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Main Content Block -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Boutique Cozy Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>crochetttcharm 🧶</h3>
+                <p>"Every stitch tells a story of love, crafted by hand with premium yarn to bring joy and warmth to your special moments"!</p>
+                <div class="footer-socials">
+                    <a href="#" class="footer-social-link" aria-label="Instagram"><i data-lucide="instagram" style="width:18px; height:18px;"></i></a>
+                    <a href="#" class="footer-social-link" aria-label="Pinterest"><i data-lucide="pin" style="width:18px; height:18px;"></i></a>
+                    <a href="#" class="footer-social-link" aria-label="Facebook"><i data-lucide="facebook" style="width:18px; height:18px;"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h4 class="footer-column-title">Explore</h4>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('home') }}">Home Landing</a></li>
+                    <li><a href="{{ url_for('shop') }}">Handmade Shop</a></li>
+                    <li><a href="{{ url_for('cart') }}">Shopping Basket</a></li>
+                    <li><a href="{{ url_for('admin') }}">Modify Prices</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4 class="footer-column-title">Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('shop', category='Bouquets') }}">Floral Bouquets</a></li>
+                    <li><a href="{{ url_for('shop', category='Gajras') }}">Traditional Gajras</a></li>
+                    <li><a href="{{ url_for('shop', category='Hampers') }}">Gift Hampers</a></li>
+                    <li><a href="{{ url_for('shop', category='Accessories') }}">Charms & Keychains</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column-info">
+                <h4 class="footer-column-title">Boutique Hours</h4>
+                <div class="footer-info">
+                    <p><i data-lucide="map-pin" style="width:16px; height:16px; color:var(--accent-rose);"></i> Handmade in Ahemdabad, India</p>
+                    <p><i data-lucide="clock" style="width:16px; height:16px; color:var(--accent-rose);"></i> Orders processed: 10AM - 8PM</p>
+                    <p><i data-lucide="mail" style="width:16px; height:16px; color:var(--accent-rose);"></i> hello@crochetttcharm.com</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 crochetttcharm. All rights reserved. Made for craft enthusiasts worldwide.</p>
+            <p style="display: flex; align-items: center; gap: 0.25rem;">
+                Crafted with <i data-lucide="heart" style="width:14px; height:14px; fill:var(--accent-rose); color:var(--accent-rose);"></i> one loop at a time
+            </p>
+        </div>
+    </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+        
+        // Auto-dismiss flash messages after 5 seconds
+        setTimeout(function() {
+            var flashContainer = document.getElementById('flashMessageContainer');
+            if (flashContainer) {
+                var alerts = flashContainer.getElementsByClassName('flash-message');
+                for (var i = 0; i < alerts.length; i++) {
+                    (function(el) {
+                        el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                        el.style.opacity = '0';
+                        el.style.transform = 'translateY(-10px)';
+                        setTimeout(function() {
+                            el.style.display = 'none';
+                        }, 600);
+                    })(alerts[i]);
+                }
+            }
+        }, 5000);
+    </script>
+</body>
+</html>

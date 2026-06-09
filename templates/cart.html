@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block title %}crochetttcharm | Your Basket - Cozy Handcrafted Goods{% endblock %}
+
+{% block content %}
+<div class="cart-page" id="shoppingCartPage">
+    
+    <!-- Header Section -->
+    <div class="section-header" style="margin-bottom: 3rem;">
+        <h1 class="section-title">Your Basket</h1>
+        <p class="section-subtitle">Review your selected artisan creations and adjust quantities before checking out.</p>
+    </div>
+
+    {% if cart_items %}
+        <div class="cart-layout" id="cartLayoutGrid">
+            
+            <!-- Left Column: Basket List -->
+            <div class="cart-table-card" id="cartTableContainer">
+                <div class="cart-header-actions">
+                    <h2 style="font-size: 1.25rem; font-family: var(--font-serif); font-weight: 600;">Items ({{ total_quantity }})</h2>
+                    <form action="{{ url_for('clear_cart') }}" method="POST">
+                        <button type="submit" class="cart-clear-btn" id="btnClearBasket">
+                            <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i> Clear Basket
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="cart-list" id="cartProductList">
+                    {% for item in cart_items %}
+                        <div class="cart-item" id="cart_item_{{ item.id }}">
+                            <!-- Thumbnail -->
+                            <div class="cart-item-image">
+                                <img src="{{ item.image }}" alt="{{ item.name }}">
+                            </div>
+                            
+                            <!-- Details -->
+                            <div class="cart-item-details">
+                                <h3 class="cart-item-name">{{ item.name }}</h3>
+                                <span class="cart-item-meta">Category: {{ item.category }}</span>
+                                <span class="cart-item-price">₹{{ "{:,}".format(item.price) }} each</span>
+                            </div>
+                            
+                            <!-- Quantity Controls & Subtotal -->
+                            <div class="cart-item-qty-subtotal">
+                                <form action="{{ url_for('update_cart', product_id=item.id) }}" method="POST" class="qty-form">
+                                    <input type="hidden" name="action" value="update">
+                                    
+                                    <!-- Minus Button -->
+                                    <button type="submit" name="quantity" value="{{ item.quantity - 1 }}" class="qty-btn" id="qtyMinus_{{ item.id }}" aria-label="Decrease quantity">-</button>
+                                    
+                                    <!-- Input -->
+                                    <input type="number" class="qty-input" value="{{ item.quantity }}" readonly id="qtyInput_{{ item.id }}">
+                                    
+                                    <!-- Plus Button -->
+                                    <button type="submit" name="quantity" value="{{ item.quantity + 1 }}" class="qty-btn" id="qtyPlus_{{ item.id }}" aria-label="Increase quantity">+</button>
+                                </form>
+                                
+                                <span class="cart-item-subtotal">₹{{ "{:,}".format(item.total) }}</span>
+                                
+                                <!-- Delete Item -->
+                                <form action="{{ url_for('update_cart', product_id=item.id) }}" method="POST" class="cart-item-remove-form">
+                                    <input type="hidden" name="action" value="remove">
+                                    <button type="submit" class="btn-remove-item" id="btnRemove_{{ item.id }}" title="Remove Item">
+                                        <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Right Column: Order Summary -->
+            <div class="cart-summary-card" id="cartSummaryContainer">
+                <h2 class="summary-title">Order Summary</h2>
+                
+                <div class="summary-row">
+                    <span>Basket Subtotal</span>
+                    <span style="font-weight: 600; color: var(--text-primary);">₹{{ "{:,}".format(subtotal) }}</span>
+                </div>
+                
+                <div class="summary-row">
+                    <span>Packaging & Shipping</span>
+                    {% if shipping_charge == 0 %}
+                        <span style="font-weight: 600; color: var(--accent-sage);">FREE</span>
+                    {% else %}
+                        <span style="font-weight: 600; color: var(--text-primary);">₹{{ shipping_charge }}</span>
+                    {% endif %}
+                </div>
+                
+                <!-- Free Shipping Progress Indicator -->
+                {% if subtotal < 999 %}
+                    <div class="free-shipping-indicator missing" id="shippingBanner">
+                        🎁 Add <strong>₹{{ 999 - subtotal }}</strong> more for <strong>FREE Shipping</strong>!
+                    </div>
+                {% else %}
+                    <div class="free-shipping-indicator" id="shippingBanner">
+                        🎉 Awesome! Your order qualifies for <strong>FREE Shipping</strong>!
+                    </div>
+                {% endif %}
+                
+                <div class="summary-row total">
+                    <span>Grand Total</span>
+                    <span>₹{{ "{:,}".format(grand_total) }}</span>
+                </div>
+                
+                <!-- Checkout CTA -->
+                <button class="btn btn-primary checkout-btn" onclick="openCheckoutModal()" id="btnCheckout">
+                    Place Simulated Order 🛍️
+                </button>
+                
+                <p class="checkout-notice">No actual payment credentials required. Explore our live simulation dashboard.</p>
+            </div>
+            
+        </div>
+    {% else %}
+        <!-- Cozy Empty State if Cart is Empty -->
+        <div class="empty-state" id="cartEmptyState" style="padding: 6rem 2rem;">
+            <span class="empty-state-icon" style="font-size: 5rem;">🧺</span>
+            <h2 class="empty-state-title" style="font-size: 1.75rem; margin-top: 1rem;">Your basket is empty</h2>
+            <p class="empty-state-desc">You haven't added any of our warm, handmade creations to your basket yet.</p>
+            <a href="{{ url_for('shop') }}" class="btn btn-primary" id="btnCartBackToShop">
+                Explore Handmade Shop 🛍️
+            </a>
+        </div>
+    {% endif %}
+
+</div>
+
+<!-- Interactive Simulated Checkout Modal overlay -->
+<div id="checkoutModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(60, 48, 40, 0.5); backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center;">
+    <div style="background-color: var(--bg-card); border-radius: var(--radius-lg); padding: 3rem; max-width: 500px; width: 90%; text-align: center; box-shadow: var(--shadow-lg); border: 1px solid var(--border-color); animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+        <span style="font-size: 4rem; display: block; margin-bottom: 1rem; animation: floatIcon 2s ease-in-out infinite;">🎉</span>
+        <h2 style="font-family: var(--font-serif); font-size: 2rem; margin-bottom: 1rem; color: var(--text-primary);">Order Placed Successfully!</h2>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6;">
+            Your simulated order worth <strong>₹{{ "{:,}".format(grand_total) }}</strong> has been registered with <strong>crochetttcharm</strong>. Thank you for supporting small handmade businesses!
+        </p>
+        
+        <div style="background-color: var(--bg-primary); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: left; margin-bottom: 2rem; font-size: 0.88rem; color: var(--text-secondary);">
+            <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; border-bottom: 1px dashed var(--border-color); padding-bottom: 0.4rem;">RECEIPT DETAILS</div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;"><span>Items Ordered:</span> <span>{{ total_quantity }}</span></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;"><span>Subtotal:</span> <span>₹{{ "{:,}".format(subtotal) }}</span></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;"><span>Shipping:</span> <span>{% if shipping_charge == 0 %}Free{% else %}₹{{ shipping_charge }}{% endif %}</span></div>
+            <div style="display:flex; justify-content:space-between; font-weight: 700; color: var(--text-primary); margin-top: 0.5rem; border-top: 1px dashed var(--border-color); padding-top: 0.4rem;"><span>Total Paid:</span> <span>₹{{ "{:,}".format(grand_total) }}</span></div>
+        </div>
+        
+        <form action="{{ url_for('clear_cart') }}" method="POST">
+            <button type="submit" class="btn btn-primary" style="width: 100%; border-radius: 50px;">
+                Complete & Return to Shop 🧶
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openCheckoutModal() {
+        document.getElementById('checkoutModal').style.display = 'flex';
+    }
+</script>
+
+<style>
+    @keyframes floatIcon {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+</style>
+{% endblock %}

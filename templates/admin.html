@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}crochetttcharm | Admin Pricing Dashboard{% endblock %}
+
+{% block content %}
+<div class="admin-page" id="adminDashboardSection">
+    
+    <!-- Admin Header & Stats -->
+    <div class="admin-header">
+        <div>
+            <h1 class="section-title" style="text-align: left; margin-bottom: 0.5rem;">Pricing Dashboard</h1>
+            <p class="section-subtitle" style="text-align: left;">Modify initial pricing details of your handmade artisan creations in real-time. Changes are persisted locally.</p>
+        </div>
+        <div class="admin-stats" id="dashboardStatsBar">
+            <div class="stat-pill">
+                Total Products: <span id="statTotalItems">{{ products|length }}</span>
+            </div>
+            <div class="stat-pill">
+                Currency: <span id="statCurrency">INR (₹)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Price Modification Form -->
+    <div class="admin-card" id="adminFormCard">
+        <form action="{{ url_for('update_prices') }}" method="POST" id="priceModifierForm">
+            
+            <div class="admin-table-container">
+                <table class="admin-table" id="adminProductsTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 80px; text-align: center;">ID</th>
+                            <th>Artisan Product</th>
+                            <th style="width: 250px;">Current Price (₹)</th>
+                            <th style="width: 200px;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                            <tr id="admin_row_{{ product.id }}">
+                                <!-- ID -->
+                                <td style="text-align: center; font-weight: 600; color: var(--text-light);">
+                                    #{{ product.id }}
+                                </td>
+                                
+                                <!-- Product Card Info -->
+                                <td>
+                                    <div class="admin-prod-cell">
+                                        <div class="admin-prod-thumb">
+                                            <img src="{{ product.image }}" alt="{{ product.name }}">
+                                        </div>
+                                        <div>
+                                            <div class="admin-prod-name">{{ product.name }}</div>
+                                            <span class="admin-prod-cat">{{ product.category }}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                
+                                <!-- Price Modifying Input -->
+                                <td>
+                                    <div class="price-input-wrapper">
+                                        <span class="price-currency-sign">₹</span>
+                                        <input type="number" 
+                                               name="price_{{ product.id }}" 
+                                               class="price-input" 
+                                               value="{{ product.price }}" 
+                                               min="0" 
+                                               step="1" 
+                                               required 
+                                               id="priceInputRaw_{{ product.id }}"
+                                               oninput="validateLivePrice(this, 'priceWarn_{{ product.id }}')">
+                                    </div>
+                                    <div class="price-warning" id="priceWarn_{{ product.id }}" style="color: #9C3838; font-size: 0.75rem; margin-top: 0.25rem; display: none;"></div>
+                                </td>
+                                
+                                <!-- Status Badge -->
+                                <td>
+                                    <span style="display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.85rem; color: var(--accent-sage); font-weight: 600;">
+                                        <span style="width: 8px; height: 8px; background-color: var(--accent-sage); border-radius: 50%;"></span> Active
+                                    </span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Form Submission Bar -->
+            <div class="admin-footer-bar" id="adminFormFooter">
+                <button type="submit" class="btn btn-primary" style="padding: 0.8rem 2.5rem; display: inline-flex; align-items: center; gap: 0.5rem;" id="btnUpdateAllPrices">
+                    <i data-lucide="save" style="width: 18px; height: 18px;"></i> Update Prices
+                </button>
+            </div>
+            
+        </form>
+    </div>
+
+</div>
+
+<!-- Real-time Input Validation Script -->
+<script>
+    function validateLivePrice(input, warningId) {
+        var warningEl = document.getElementById(warningId);
+        var val = parseFloat(input.value);
+        if (isNaN(val) || val < 0) {
+            warningEl.textContent = "Price cannot be negative!";
+            warningEl.style.display = 'block';
+            input.style.borderColor = '#9C3838';
+        } else if (val > 10000) {
+            warningEl.textContent = "High Price. Please double check!";
+            warningEl.style.display = 'block';
+            warningEl.style.color = 'var(--accent-gold)';
+            input.style.borderColor = 'var(--accent-gold)';
+        } else {
+            warningEl.style.display = 'none';
+            input.style.borderColor = '';
+        }
+    }
+</script>
+{% endblock %}

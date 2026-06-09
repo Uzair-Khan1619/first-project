@@ -1,0 +1,25 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero">
+    <h1>Luxury Handmade Crochet Boutique</h1>
+    <p>Premium crochet bouquets, keychains, bags & cute handmade gifts.</p>
+</section>
+
+<div class="product-grid">
+{% for product in featured %}
+<div class="product-card">
+    <img src="{{ product.image }}">
+    <div class="product-info">
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description }}</p>
+        <div class="price">₹{{ product.price }}</div>
+        <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
+            <button class="btn">Add To Cart</button>
+        </form>
+    </div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}
