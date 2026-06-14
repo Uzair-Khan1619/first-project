@@ -25,112 +25,141 @@ def load_products():
     # Default Products
     default_products = [
         {
-    "id": 1,
-    "name": "Lily Bouquet",
-    "category": "Bouquets",
-    "price": 400,
-    "description": "Delicate lily blooms in soft pastels, eternally preserved through intricate crochet artistry.",
-    "image": "/static/images/bouquets/lily.jpg"
-},
-
-{
-    "id": 2,
-    "name": "Tulip + Lily Bouquet",
-    "category": "Bouquets",
-    "price": 600,
-    "description": "A dreamy fusion of tulips and lilies, handcrafted to capture spring's gentle essence forever.",
-    "image": "/static/images/bouquets/tulip-lily.jpg"
-},
-
-{
-    "id": 3,
-    "name": "Rose + Tulip Bouquet",
-    "category": "Bouquets",
-    "price": 600,
-    "description": "Romantic roses meet elegant tulips in this timeless bouquet that never wilts or fades.",
-    "image": "/static/images/bouquets/rose-tulip.jpg"
-},
-
-{
-    "id": 4,
-    "name": "Chocolate Bouquet",
-    "category": "Bouquets",
-    "price": 400,
-    "description": "Sweet indulgence meets floral beauty in this charming chocolate-inspired bouquet creation.",
-    "image": "/static/images/bouquets/chocolate.jpg"
-},
-
-{
-    "id": 5,
-    "name": "Phone Case",
-    "category": "Cases",
-    "price": 350,
-    "description": "Wrap your phone in cozy handmade charm with soft, cushioned crochet protection.",
-    "image": "/static/images/cases/phone-case.jpg"
-},
-
-{
-    "id": 6,
-    "name": "Crochet T-Shirt",
-    "category": "T-Shirts",
-    "price": 1200,
-    "description": "Boho-chic wearable art featuring intricate crochet patterns that make a statement.",
-    "image": "/static/images/tshirts/crochet-tshirt.jpg"
-},
-
-{
-    "id": 7,
-    "name": "Rose Keychain",
-    "category": "Keychains",
-    "price": 150,
-    "description": "Carry a tiny bloom wherever you go with this adorable mini rose companion.",
-    "image": "/static/images/keychains/rose-keychain.jpg"
-},
-
-{
-    "id": 8,
-    "name": "Letter Keychain",
-    "category": "Keychains",
-    "price": 150,
-    "description": "Personalized charm featuring your initial, lovingly crafted in soft pastel hues.",
-    "image": "/static/images/keychains/letter-keychain.jpg"
-},
-
-{
-    "id": 9,
-    "name": "Pearl Gajra",
-    "category": "Gajras",
-    "price": 180,
-    "description": "Traditional elegance reimagined with delicate pearls and crochet flowers for timeless grace.",
-    "image": "/static/images/gajras/pearl-gajra.jpg"
-},
-
-{
-    "id": 10,
-    "name": "Rose Bag",
-    "category": "Bags",
-    "price": 999,
-    "description": "Luxurious garden-inspired bag adorned with blooming roses, perfect for romantic outings.",
-    "image": "/static/images/bags/rose-bag.jpg"
-},
-
-{
-    "id": 11,
-    "name": "Bow Clip",
-    "category": "Clips",
-    "price": 180,
-    "description": "Sweet bow accent crafted to add a touch of whimsy and charm to any hairstyle.",
-    "image": "/static/images/clips/bow-clip.jpg"
-},
-
-{
-    "id": 12,
-    "name": "Hair Clips",
-    "category": "Clips",
-    "price": 150,
-    "description": "Dainty hair accessories that blend functionality with handmade artistry and softness.",
-    "image": "/static/images/clips/hair-clip.jpg"
-}
+            "id": 1,
+            "name": "Crochet flower gajras",
+            "category": "Hair Accessories",
+            "price": 199,
+            "description": "Traditional elegance reimagined with delicate crochet flowers for timeless grace.",
+            "image": "/static/Images/pearl-gajra.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Tulip + Lily Bouquet",
+            "category": "Bouquet",
+            "price": 600,
+            "description": "A dreamy fusion of tulips and lilies, handcrafted to capture spring's gentle essence forever.",
+            "image": "/static/Images/tulip-lily-bouquet.jpg"
+        },
+        {
+            "id": 3,
+            "name": "Rose + Tulip Bouquet",
+            "category": "Bouquet",
+            "price": 600,
+            "description": "Romantic roses meet elegant tulips in this timeless bouquet that never wilts or fades.",
+            "image": "/static/Images/rose-tulip-bouquet.jpg"
+        },
+        {
+            "id": 4,
+            "name": "Chocolate Bouquet",
+            "category": "Bouquet",
+            "price": 400,
+            "description": "Sweet indulgence meets floral beauty in this charming chocolate-inspired bouquet creation.",
+            "image": "/static/Images/chocolate-bouquet.jpg"
+        },
+        {
+            "id": 5,
+            "name": "Lily Bouquet",
+            "category": "Bouquet",
+            "price": 400,
+            "description": "Delicate lily blooms in soft pastels, eternally preserved through intricate crochet artistry.",
+            "image": "/static/Images/lily-bouquet.jpg"
+        },
+        {
+            "id": 6,
+            "name": "Phone Case",
+            "category": "Phone Cases",
+            "price": 350,
+            "description": "Wrap your phone in cozy handmade charm with soft, cushioned crochet protection.",
+            "image": "/static/Images/phone-case.jpg"
+        },
+        {
+            "id": 7,
+            "name": "Crochet T-Shirt",
+            "category": "T-Shirts",
+            "price": 1200,
+            "description": "Boho-chic wearable art featuring intricate crochet patterns that make a statement.",
+            "image": "/static/Images/crochet-tshirt.jpg"
+        },
+        {
+            "id": 8,
+            "name": "Rose Keychain",
+            "category": "Keychains",
+            "price": 150,
+            "description": "Carry a tiny bloom wherever you go with this adorable mini rose keychain companion.",
+            "image": "/static/Images/rose-keychain.jpg"
+        },
+        {
+            "id": 9,
+            "name": "Letter Keychain",
+            "category": "Keychains",
+            "price": 150,
+            "description": "Personalized keychain charm featuring your initial, lovingly crafted in soft pastel hues.",
+            "image": "/static/Images/letter-keychain.jpg"
+        },
+        {
+            "id": 10,
+            "name": "Rose Bag",
+            "category": "Bags",
+            "price": 999,
+            "description": "Luxurious garden-inspired bag adorned with blooming roses, perfect for romantic outings.",
+            "image": "/static/Images/rose-bag.jpg"
+        },
+        {
+            "id": 11,
+            "name": "Bow Clip",
+            "category": "Hair Accessories",
+            "price": 180,
+            "description": "Sweet bow accent hair clip crafted to add a touch of whimsy and charm to any hairstyle.",
+            "image": "/static/Images/bow-clip.jpg"
+        },
+        {
+            "id": 12,
+            "name": "Hair Clips Set",
+            "category": "Hair Accessories",
+            "price": 150,
+            "description": "Dainty hair clips that blend functionality with handmade artistry and pastel softness.",
+            "image": "/static/Images/bow-clip.jpg"
+        },
+        {
+            "id": 13,
+            "name": "Cozy Bloom Hamper",
+            "category": "Hampers",
+            "price": 1499,
+            "description": "A premium gift hamper filled with assorted crochet flowers, a keychain, and a mini basket.",
+            "image": "/static/Images/rose-bag.jpg"
+        },
+        {
+            "id": 14,
+            "name": "Daisy Ring",
+            "category": "Jewelry",
+            "price": 120,
+            "description": "An elegant, delicate crochet daisy ring that sits comfortably and adds a vintage touch.",
+            "image": "/static/Images/bow-clip.jpg"
+        },
+        {
+            "id": 15,
+            "name": "Cute Peach Keychain",
+            "category": "Keychains",
+            "price": 140,
+            "description": "Adorable soft plush peach keychain, hand-stitched with vibrant yarn and green leaves.",
+            "image": "/static/Images/rose-keychain.jpg"
+        },
+        {
+            "id": 16,
+            "name": "Strawberry Phone Case",
+            "category": "Phone Cases",
+            "price": 380,
+            "description": "Cozy phone case adorned with cute mini crochet strawberries for a sweet, playful look.",
+            "image": "/static/Images/phone-case.jpg"
+        },
+        {
+            "id": 17,
+            "name": "Custom Monogram Banner",
+            "category": "Custom Gifts",
+            "price": 899,
+            "description": "Personalized wall hanging banner hand-crocheted with your custom name or initial.",
+            "image": "/static/Images/letter-keychain.jpg"
+        }
     ]
 
     save_products(default_products)

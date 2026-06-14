@@ -3,7 +3,7 @@ import sys
 import json
 
 # Add workspace directory to python path to import app.py
-sys.path.append(r"c:\Users\UJAIR PATHAN\Desktop\crochet_website")
+sys.path.append(r"c:\Users\UJAIR PATHAN\Desktop\3rd attemp")
 
 try:
     from app import app, PRODUCTS_FILE, load_products

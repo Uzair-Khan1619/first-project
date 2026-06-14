@@ -1,25 +1,565 @@
-
 {% extends 'base.html' %}
 
 {% block content %}
-<section class="hero">
-    <h1>Luxury Handmade Crochet Boutique</h1>
-    <p>Premium crochet bouquets, keychains, bags & cute handmade gifts.</p>
+
+<!-- Hero Section -->
+<section class="hero-wrapper">
+    <!-- Soft floating decorations -->
+    <div class="hero-deco hero-deco-1">
+        <svg viewBox="0 0 24 24" width="36" height="36" style="fill: var(--accent-rose); opacity: 0.5;"><path d="M12 2a4 4 0 0 0-4 4 4 4 0 0 0 1.25 2.94A4 4 0 0 0 8 12a4 4 0 0 0 1.25 2.94A4 4 0 0 0 8 18a4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-1.25-2.94A4 4 0 0 0 16 12a4 4 0 0 0-1.25-2.94A4 4 0 0 0 16 6a4 4 0 0 0-4-4zm0 8a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg>
+    </div>
+    <div class="hero-deco hero-deco-2">
+        <svg viewBox="0 0 100 100" width="32" height="32" style="fill: none; stroke: var(--accent-rose); stroke-width: 5; opacity: 0.5;"><circle cx="50" cy="50" r="40" stroke="var(--accent-rose)" fill="var(--bg-accent-pink)" stroke-width="5" /><path d="M30 20 C 50 40, 50 60, 70 80" /><path d="M20 40 C 40 50, 60 50, 80 60" /><path d="M40 15 C 45 45, 55 55, 60 85" /><path d="M15 60 C 45 55, 55 45, 85 40" /><path d="M50 10 C 20 40, 80 60, 50 90" /><path d="M90 50 C 60 20, 40 80, 10 50" /></svg>
+    </div>
+    <div class="hero-deco hero-deco-3">
+        <svg viewBox="0 0 24 24" width="34" height="34" style="fill: var(--accent-rose); opacity: 0.55;"><path d="M4 6c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2H4zm14 0c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-2zM12 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+    </div>
+    <div class="hero-deco hero-deco-4">
+        <svg viewBox="0 0 24 24" width="38" height="38" style="fill: var(--accent-gold); opacity: 0.6;"><circle cx="12" cy="12" r="4" fill="#6B4F35"/><path d="M12 2l1.5 4L12 10 10.5 6zm0 20l-1.5-4 1.5-4 1.5 4zm-10-10l4 1.5L10 12 6 10.5zm20 0l-4-1.5-4 1.5 4 1.5zm-15.5-5.5l3.2 2.2-2.2 3.2-3.2-2.2zm11 11l-3.2-2.2 2.2-3.2 3.2 2.2zm-11 0l-2.2-3.2 3.2-2.2 2.2 3.2zm11-11l2.2 3.2-3.2 2.2-2.2-3.2z"/></svg>
+    </div>
+    <div class="hero-deco hero-deco-5">
+        <svg viewBox="0 0 24 24" width="28" height="28" style="fill: var(--accent-pink-blush); opacity: 0.75;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    </div>
+    
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i> &nbsp; Heirloom Craftsmanship
+                </div>
+                <h1>Crochet Creations Made From The Heart</h1>
+                <p>Immerse yourself in our Pinterest-inspired boutique collection of luxury hand-stitched floral bouquets, premium gift hampers, bags, and adorable custom gifts. Each piece is knitted loop by loop with pure love and devotion.</p>
+                <div class="hero-buttons">
+                    <a href="{{ url_for('shop') }}" class="btn btn-primary">
+                        Shop Collection <i data-lucide="shopping-bag" style="width: 16px; height: 16px;"></i>
+                    </a>
+                    <a href="#about" class="btn btn-secondary">
+                        Explore Our Story <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-showcase">
+                <div class="hero-bg-blob"></div>
+                <div class="hero-yarn-line"></div>
+                <div class="hero-frame-wrapper stitch-border">
+                    <img src="/static/Images/rose-bag.jpg" alt="Aesthetic handmade crochet collection" class="hero-image">
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
-<div class="product-grid">
-{% for product in featured %}
-<div class="product-card">
-    <img src="{{ product.image }}">
-    <div class="product-info">
-        <h2>{{ product.name }}</h2>
-        <p>{{ product.description }}</p>
-        <div class="price">₹{{ product.price }}</div>
-        <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
-            <button class="btn">Add To Cart</button>
-        </form>
+<!-- Features Bar Section -->
+<section class="features-banner">
+    <div class="container">
+        <div class="features-banner-row">
+            <div class="features-banner-item">
+                <i data-lucide="heart" class="features-banner-icon" style="color: var(--accent-rose); width: 22px; height: 22px;"></i>
+                <span class="features-banner-text">Handmade With Love</span>
+            </div>
+            <div class="features-banner-item">
+                <i data-lucide="award" class="features-banner-icon" style="color: var(--accent-rose); width: 22px; height: 22px;"></i>
+                <span class="features-banner-text">Premium Quality</span>
+            </div>
+            <div class="features-banner-item">
+                <i data-lucide="palette" class="features-banner-icon" style="color: var(--accent-rose); width: 22px; height: 22px;"></i>
+                <span class="features-banner-text">Custom Personalized</span>
+            </div>
+            <div class="features-banner-item">
+                <i data-lucide="truck" class="features-banner-icon" style="color: var(--accent-rose); width: 22px; height: 22px;"></i>
+                <span class="features-banner-text">Fast Delivery</span>
+            </div>
+            <div class="features-banner-item">
+                <i data-lucide="users" class="features-banner-icon" style="color: var(--accent-rose); width: 22px; height: 22px;"></i>
+                <span class="features-banner-text">Trusted by Hundreds</span>
+            </div>
+            <div class="features-banner-item">
+                <i data-lucide="shopping-bag" class="features-banner-icon" style="color: var(--accent-rose); width: 22px; height: 22px;"></i>
+                <span class="features-banner-text">Easy Ordering</span>
+            </div>
+        </div>
     </div>
-</div>
-{% endfor %}
-</div>
+</section>
+
+<!-- Yarn divider -->
+<div class="yarn-string-divider"></div>
+
+<!-- About Section -->
+<section class="about-section" id="about">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-image-frame stitch-border">
+                <div class="about-deco-blob"></div>
+                <img src="/static/Images/lily-bouquet.jpg" alt="Crochet craft preparation" class="about-main-img">
+                <div class="about-flower-badge">
+                    <svg class="flower-emoji" viewBox="0 0 24 24" width="32" height="32" style="fill: var(--accent-rose); margin-bottom: 4px;"><path d="M12 2a4 4 0 0 0-4 4 4 4 0 0 0 1.25 2.94A4 4 0 0 0 8 12a4 4 0 0 0 1.25 2.94A4 4 0 0 0 8 18a4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-1.25-2.94A4 4 0 0 0 16 12a4 4 0 0 0-1.25-2.94A4 4 0 0 0 16 6a4 4 0 0 0-4-4zm0 8a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg>
+                    <span class="flower-text">Stitched with love</span>
+                </div>
+            </div>
+            <div class="about-content">
+                <div class="section-subtitle-tag">Meet the Maker</div>
+                <h2>A Story in Every Single Stitch</h2>
+                <p>Welcome to CrochetttCharm, a boutique born out of a lifelong passion for yarn art and cozy feminine aesthetics. We believe that in a world of machine-made products, something hand-crocheted holds a special soul. Every loop represents patience, every design represents creativity, and the finished piece carries the warmth of the artisan's hands.</p>
+                <p>Using premium milk cotton yarn and luxurious details, we create bouquets that never wilt, bags that turn heads, and personalized keychains that make perfect keepsakes. We make gifts that help you express feelings that words cannot describe.</p>
+                
+                <div class="about-features">
+                    <div class="about-feat-item">
+                        <i data-lucide="scissors" style="color: var(--accent-rose); width: 24px; height: 24px; display: block; margin: 0 auto 0.5rem;"></i>
+                        <span class="about-feat-title">Handmade</span>
+                    </div>
+                    <div class="about-feat-item">
+                        <i data-lucide="gem" style="color: var(--accent-rose); width: 24px; height: 24px; display: block; margin: 0 auto 0.5rem;"></i>
+                        <span class="about-feat-title">Premium Quality</span>
+                    </div>
+                    <div class="about-feat-item">
+                        <i data-lucide="heart" style="color: var(--accent-rose); width: 24px; height: 24px; display: block; margin: 0 auto 0.5rem;"></i>
+                        <span class="about-feat-title">Made With Love</span>
+                    </div>
+                </div>
+                
+                <a href="{{ url_for('shop') }}" class="btn btn-primary">Discover Catalog</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Yarn divider -->
+<div class="yarn-string-divider"></div>
+
+<!-- Categories Section -->
+<section class="categories-section" id="categories">
+    <div class="container">
+        <div class="section-title-wrapper">
+            <span class="section-subtitle-tag">Our Curations</span>
+            <h2 class="section-main-title">Browse By Category</h2>
+        </div>
+        
+        <div class="section-divider">
+            <svg viewBox="0 0 24 24" width="24" height="24" style="fill: var(--accent-rose);"><path d="M12 22.5c.27 0 .5-.1.68-.28l9.16-9.15c.9-.9.9-2.36 0-3.26L12.68 1.1A.97.97 0 0 0 12 .8a.97.97 0 0 0-.68.3L2.16 10.25c-.9.9-.9 2.36 0 3.26l9.16 9.15a.96.96 0 0 0 .68.28zM12 4.4l6.4 6.4-6.4 6.4-6.4-6.4 6.4-6.4z"/></svg>
+        </div>
+        
+        <div class="categories-grid">
+            <!-- 9 categories cards -->
+            <a href="{{ url_for('shop', category='Bouquet') }}" class="category-card">
+                <div class="category-icon">
+                    <i data-lucide="flower-2"></i>
+                </div>
+                <div class="category-name">Bouquet</div>
+            </a>
+            <a href="{{ url_for('shop', category='Hampers') }}" class="category-card">
+                <div class="category-icon">
+                    <i data-lucide="gift"></i>
+                </div>
+                <div class="category-name">Hampers</div>
+            </a>
+            <a href="{{ url_for('shop', category='Keychains') }}" class="category-card">
+                <div class="category-icon">
+                    <i data-lucide="key"></i>
+                </div>
+                <div class="category-name">Keychains</div>
+            </a>
+            <a href="{{ url_for('shop', category='Bags') }}" class="category-card">
+                <div class="category-icon">
+                    <i data-lucide="shopping-bag"></i>
+                </div>
+                <div class="category-name">Bags</div>
+            </a>
+            <a href="{{ url_for('shop', category='Phone Cases') }}" class="category-card">
+                <div class="category-icon">
+                    <i data-lucide="smartphone"></i>
+                </div>
+                <div class="category-name">Phone Cases</div>
+            </a>
+            <a href="{{ url_for('shop', category='Jewelry') }}" class="category-card">
+                <div class="category-icon">
+                    <i data-lucide="gem"></i>
+                </div>
+                <div class="category-name">Jewelry</div>
+            </a>
+            <a href="{{ url_for('shop', category='Hair Accessories') }}" class="category-card">
+                <div class="category-icon">
+                    <i data-lucide="sparkles"></i>
+                </div>
+                <div class="category-name">Hair Accessories</div>
+            </a>
+            <a href="{{ url_for('shop', category='T-Shirts') }}" class="category-card">
+                <div class="category-icon">
+                    <i data-lucide="shirt"></i>
+                </div>
+                <div class="category-name">T-Shirts</div>
+            </a>
+            <a href="{{ url_for('shop', category='Custom Gifts') }}" class="category-card">
+                <div class="category-icon">
+                    <i data-lucide="heart"></i>
+                </div>
+                <div class="category-name">Custom Gifts</div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Yarn divider -->
+<div class="yarn-string-divider"></div>
+
+<!-- Boutique Favorites Product Section -->
+<section class="products-section" id="products">
+    <div class="container">
+        <div class="section-title-wrapper">
+            <span class="section-subtitle-tag">Lovingly Stitched</span>
+            <h2 class="section-main-title">Boutique Favorites</h2>
+        </div>
+        
+        <div class="section-divider">
+            <svg viewBox="0 0 100 100" width="24" height="24" style="fill: none; stroke: var(--accent-rose); stroke-width: 6; vertical-align: middle;"><circle cx="50" cy="50" r="40" stroke="var(--accent-rose)" fill="var(--bg-accent-pink)" stroke-width="6" /><path d="M30 20 C 50 40, 50 60, 70 80" /><path d="M20 40 C 40 50, 60 50, 80 60" /></svg>
+        </div>
+        
+        <div class="product-grid">
+            {% for product in featured %}
+                <div class="product-card" id="featured_prod_{{ product.id }}">
+                    <!-- Card Badges -->
+                    <span class="product-card-badge">Best Seller</span>
+                    
+                    <!-- Wishlist heart button -->
+                    <div class="product-wishlist-btn">
+                        <div class="wishlist-heart" onclick="this.classList.toggle('active'); alert('🎀 Added to simulated favorites! 🎀')">
+                            <i data-lucide="heart" style="width: 18px; height: 18px;"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Image -->
+                    <div class="product-image-wrapper">
+                        <img src="{{ product.image }}" alt="{{ product.name }}">
+                    </div>
+                    
+                    <!-- Info -->
+                    <div class="product-info">
+                        <span class="product-category-tag">{{ product.category }}</span>
+                        <h3 class="product-title">{{ product.name }}</h3>
+                        <p class="product-desc">{{ product.description }}</p>
+                        
+                        <div class="product-footer">
+                            <span class="product-price">₹{{ "{:,}".format(product.price) }}</span>
+                            <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
+                                <button class="product-add-btn" type="submit" aria-label="Add to cart">
+                                    <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <div style="text-align: center; margin-top: 4rem;">
+            <a href="{{ url_for('shop') }}" class="btn btn-secondary">
+                View Full Handmade Catalog <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Custom Orders Anchor Section -->
+<section id="custom-orders" style="background-color: var(--bg-secondary); padding: 7rem 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <span class="section-subtitle-tag">Tailored for You</span>
+            <h2 style="font-family: var(--font-serif); font-size: 2.8rem; color: var(--text-primary); margin-bottom: 1.5rem;">Have a Custom Order in Mind?</h2>
+            <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 2.5rem;">
+                Looking for a unique pastel colorway, a special name monogram embroidered, or a custom bouquet matching a wedding palette? We would love to collaborate! Send us your Pinterest boards, yarn preferences, or sketch concepts.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <a href="mailto:orders@crochetttcharm.com?subject=Custom%20Crochet%20Request" class="btn btn-primary">
+                    <i data-lucide="mail" style="width: 18px; height: 18px;"></i> Contact Designer
+                </a>
+                <a href="#contact" class="btn btn-outline">
+                    How it Works
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+    <div class="container">
+        <div class="section-title-wrapper">
+            <span class="section-subtitle-tag">Kind Words</span>
+            <h2 class="section-main-title">Happy Stitch Stories</h2>
+        </div>
+        
+        <div class="section-divider">
+            <svg viewBox="0 0 24 24" width="22" height="22" style="fill: var(--accent-rose); vertical-align: middle;"><path d="M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z"/></svg>
+        </div>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-quote-icon">“</div>
+                <div class="testimonial-stars">
+                    <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--accent-gold); color: var(--accent-gold);"></i>
+                    <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--accent-gold); color: var(--accent-gold);"></i>
+                    <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--accent-gold); color: var(--accent-gold);"></i>
+                    <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--accent-gold); color: var(--accent-gold);"></i>
+                    <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--accent-gold); color: var(--accent-gold);"></i>
+                </div>
+                <p class="testimonial-quote">"The Lily Bouquet I ordered is absolutely gorgeous! The pink and cream pastel combination fits my bedroom dresser perfectly. Best part is it never wilts! Stitched so cleanly."</p>
+                <div class="testimonial-profile">
+                    <img src="/static/Images/rose-keychain.jpg" alt="Aanya" class="testimonial-avatar">
+                    <div>
+                        <div class="testimonial-author-name">Aanya R.</div>
+                        <div class="testimonial-author-meta">Verified Buyer</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-quote-icon">“</div>
+                <div class="testimonial-stars">
+                    <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--accent-gold); color: var(--accent-gold);"></i>
+                    <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--accent-gold); color: var(--accent-gold);"></i>
+                    <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--accent-gold); color: var(--accent-gold);"></i>
+                    <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--accent-gold); color: var(--accent-gold);"></i>
+                    <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--accent-gold); color: var(--accent-gold);"></i>
+                </div>
+                <p class="testimonial-quote">"Ordered a Custom Monogram Banner and a phone case. The cotton yarn feels so premium and cushiony. Excellent customer service, they sent progress photos during production!"</p>
+                <div class="testimonial-profile">
+                    <img src="/static/Images/letter-keychain.jpg" alt="Priya" class="testimonial-avatar">
+                    <div>
+                        <div class="testimonial-author-name">Priya K.</div>
+                        <div class="testimonial-author-meta">Verified Buyer</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-quote-icon">“</div>
+                <div class="testimonial-stars">
+                    <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--accent-gold); color: var(--accent-gold);"></i>
+                    <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--accent-gold); color: var(--accent-gold);"></i>
+                    <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--accent-gold); color: var(--accent-gold);"></i>
+                    <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--accent-gold); color: var(--accent-gold);"></i>
+                    <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--accent-gold); color: var(--accent-gold);"></i>
+                </div>
+                <p class="testimonial-quote">"The Rose Bag is a absolute showstopper. I get compliments whenever I carry it! Solid stitching, high-quality lining, and cute crochet charms. Highly recommended!"</p>
+                <div class="testimonial-profile">
+                    <img src="/static/Images/rose-bag.jpg" alt="Rohan" class="testimonial-avatar">
+                    <div>
+                        <div class="testimonial-author-name">Sneha M.</div>
+                        <div class="testimonial-author-meta">Verified Buyer</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Instagram Section -->
+<section class="instagram-section" id="contact">
+    <div class="container">
+        <div class="section-title-wrapper">
+            <span class="section-subtitle-tag">Share the Charm</span>
+            <h2 class="section-main-title">Inspired by Pinterest</h2>
+        </div>
+        
+        <div class="section-divider">
+            <svg viewBox="0 0 24 24" width="24" height="24" style="fill: var(--accent-rose); vertical-align: middle;"><path d="M4 6c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2H4zm14 0c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-2zM12 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+        </div>
+        
+        <div class="instagram-grid">
+            <div class="instagram-card">
+                <img src="/static/Images/rose-bag.jpg" alt="Crochet bag grid">
+                <div class="instagram-overlay">
+                    <i data-lucide="instagram"></i>
+                </div>
+            </div>
+            <div class="instagram-card">
+                <img src="/static/Images/lily-bouquet.jpg" alt="Crochet flower grid">
+                <div class="instagram-overlay">
+                    <i data-lucide="instagram"></i>
+                </div>
+            </div>
+            <div class="instagram-card">
+                <img src="/static/Images/tulip-lily-bouquet.jpg" alt="Crochet tulip grid">
+                <div class="instagram-overlay">
+                    <i data-lucide="instagram"></i>
+                </div>
+            </div>
+            <div class="instagram-card">
+                <img src="/static/Images/bow-clip.jpg" alt="Crochet bow grid">
+                <div class="instagram-overlay">
+                    <i data-lucide="instagram"></i>
+                </div>
+            </div>
+            <div class="instagram-card">
+                <img src="/static/Images/phone-case.jpg" alt="Crochet case grid">
+                <div class="instagram-overlay">
+                    <i data-lucide="instagram"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="instagram-cta-wrapper">
+            <a href="https://pinterest.com" target="_blank" class="btn btn-outline" style="border-radius: 50px;">
+                <i data-lucide="pin" style="width: 18px; height: 18px; color: #BD081C;"></i> Follow us on Pinterest
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Admin Panel Preview at bottom of Home Page -->
+<section class="admin-preview-section">
+    <!-- Glowing aesthetic blobs -->
+    <div class="admin-glow-blob admin-glow-1"></div>
+    <div class="admin-glow-blob admin-glow-2"></div>
+    
+    <div class="container admin-preview-container">
+        <div class="admin-preview-header">
+            <h2>Live Management Panel Preview</h2>
+            <p>Control pricing, check order logs, and review sales analytics instantly using our simulation dashboard mockup.</p>
+        </div>
+        
+        <!-- Mockup Panel -->
+        <div class="dashboard-mockup">
+            <!-- Sidebar -->
+            <div class="mockup-sidebar">
+                <div>
+                    <div class="sidebar-brand">
+                        <i data-lucide="settings" style="width: 22px; height: 22px; color: var(--accent-rose);"></i>
+                        <span>AdminCharm</span>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li class="sidebar-menu-item active">
+                            <a href="#admin-preview"><i data-lucide="layout-dashboard" style="width: 16px; height: 16px;"></i> Dashboard</a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href="{{ url_for('admin') }}"><i data-lucide="dollar-sign" style="width: 16px; height: 16px;"></i> Modify Pricing</a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href="#admin-preview"><i data-lucide="package" style="width: 16px; height: 16px;"></i> Products DB</a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href="#admin-preview"><i data-lucide="shopping-cart" style="width: 16px; height: 16px;"></i> Orders Log</a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href="#admin-preview"><i data-lucide="users" style="width: 16px; height: 16px;"></i> Craft Team</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">AD</div>
+                    <div class="sidebar-user-info">
+                        <span class="sidebar-user-name">Alisha Designer</span>
+                        <span class="sidebar-user-role">Lead Artisan</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dashboard Main Content -->
+            <div class="mockup-main">
+                <div class="mockup-topbar">
+                    <span class="mockup-title">Craft Analytics Overview</span>
+                    <span class="mockup-badge">
+                        <span style="display:inline-block; width: 6px; height: 6px; background-color: var(--accent-sage); border-radius: 50%; margin-right: 4px; vertical-align: middle;"></span> Live Simulator Mode
+                    </span>
+                </div>
+                
+                <!-- 4 widgets -->
+                <div class="mockup-widgets">
+                    <div class="widget-card">
+                        <div class="widget-header">
+                            <span>Total Orders</span>
+                            <i data-lucide="shopping-bag" class="widget-icon" style="width: 16px; height: 16px;"></i>
+                        </div>
+                        <div class="widget-value">342</div>
+                        <div class="widget-meta">
+                            <i data-lucide="trending-up" style="width: 12px; height: 12px;"></i> +18.4% this month
+                        </div>
+                    </div>
+                    
+                    <div class="widget-card">
+                        <div class="widget-header">
+                            <span>Estimated Revenue</span>
+                            <i data-lucide="dollar-sign" class="widget-icon" style="width: 16px; height: 16px;"></i>
+                        </div>
+                        <div class="widget-value">₹89,240</div>
+                        <div class="widget-meta">
+                            <i data-lucide="trending-up" style="width: 12px; height: 12px;"></i> +12.3% this month
+                        </div>
+                    </div>
+                    
+                    <div class="widget-card">
+                        <div class="widget-header">
+                            <span>Yards of Yarn Used</span>
+                            <i data-lucide="activity" class="widget-icon" style="width: 16px; height: 16px;"></i>
+                        </div>
+                        <div class="widget-value">4,120m</div>
+                        <div class="widget-meta">
+                            <i data-lucide="trending-up" style="width: 12px; height: 12px;"></i> Milk Cotton 5ply
+                        </div>
+                    </div>
+                    
+                    <div class="widget-card">
+                        <div class="widget-header">
+                            <span>Satisfied Fans</span>
+                            <i data-lucide="users" class="widget-icon" style="width: 16px; height: 16px;"></i>
+                        </div>
+                        <div class="widget-value">100%</div>
+                        <div class="widget-meta">
+                            <i data-lucide="heart" style="width: 12px; height: 12px; fill:var(--accent-sage);"></i> Craft Excellence
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Table -->
+                <div class="mockup-table-card">
+                    <div class="mockup-table-title">Recent Simulated Orders</div>
+                    <div style="overflow-x: auto;">
+                        <table class="mockup-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Items</th>
+                                    <th>Category</th>
+                                    <th>Total Paid</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="color: var(--accent-rose); font-weight: 600;">#1024</td>
+                                    <td class="mockup-prod-info">Lily Bouquet + Tulip Bouquet</td>
+                                    <td>Bouquet</td>
+                                    <td>₹1,000</td>
+                                    <td><span class="mockup-status-badge completed">Delivered</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="color: var(--accent-rose); font-weight: 600;">#1023</td>
+                                    <td class="mockup-prod-info">Crochet flower gajras</td>
+                                    <td>Hair Accessories</td>
+                                    <td>₹199</td>
+                                    <td><span class="mockup-status-badge completed">Delivered</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="color: var(--accent-rose); font-weight: 600;">#1022</td>
+                                    <td class="mockup-prod-info">Rose Bag + Keychain</td>
+                                    <td>Bags</td>
+                                    <td>₹1,149</td>
+                                    <td><span class="mockup-status-badge pending">Processing</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="color: var(--accent-rose); font-weight: 600;">#1021</td>
+                                    <td class="mockup-prod-info">Custom Monogram Banner</td>
+                                    <td>Custom Gifts</td>
+                                    <td>₹899</td>
+                                    <td><span class="mockup-status-badge pending">Awaiting Yarn</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock %}

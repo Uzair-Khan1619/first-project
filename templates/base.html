@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Welcome to crochetttcharm - your boutique for beautiful, handmade, premium crochet bouquets, hampers, and keychains stitched with love.">
-    <title>{% block title %}crochetttcharm | Handmade Crochet & Hampers Boutique{% endblock %}</title>
+    <meta name="description" content="Welcome to CrochetttCharm — Your premium boutique for beautiful, luxury handmade crochet bouquets, accessories, and cute cozy gifts stitched with love.">
+    <title>{% block title %}CrochetttCharm | Luxury Handmade Crochet Boutique{% endblock %}</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://img.icons8.com/color/48/crochet.png">
     <!-- Google Fonts & Custom CSS -->
@@ -15,13 +15,33 @@
 </head>
 <body>
 
+    <!-- Announcement Bar -->
+    <div class="announcement-bar" id="announcementBar">
+        <svg class="deco-flower-svg" viewBox="0 0 24 24" width="16" height="16" style="vertical-align: middle; fill: var(--accent-rose); margin-right: 4px;"><path d="M12 2a4 4 0 0 0-4 4 4 4 0 0 0 1.25 2.94A4 4 0 0 0 8 12a4 4 0 0 0 1.25 2.94A4 4 0 0 0 8 18a4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-1.25-2.94A4 4 0 0 0 16 12a4 4 0 0 0-1.25-2.94A4 4 0 0 0 16 6a4 4 0 0 0-4-4zm0 8a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg>
+        <span>Cozy Handmade Treasures — Free Shipping on orders over ₹999!</span>
+        <svg class="deco-bow-svg" viewBox="0 0 24 24" width="16" height="16" style="vertical-align: middle; fill: var(--accent-rose); margin-left: 4px; transform: rotate(15deg);"><path d="M4 6c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2H4zm14 0c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-2zM12 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+    </div>
+
     <!-- Sticky Navigation Header -->
     <nav class="navbar" id="mainNavbar">
         <div class="navbar-container">
+            <!-- Brand Logo -->
             <a href="{{ url_for('home') }}" class="navbar-logo" id="navLogo">
-                <span>🧶</span> crochetttcharm
+                <span class="logo-yarn-wrapper">
+                    <svg class="logo-yarn-svg" viewBox="0 0 100 100" width="28" height="28" style="vertical-align: middle; fill: none; stroke: var(--accent-rose); stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round;">
+                        <circle cx="50" cy="50" r="40" stroke="var(--accent-rose)" fill="var(--bg-accent-pink)" stroke-width="4.5" />
+                        <path d="M30 20 C 50 40, 50 60, 70 80" />
+                        <path d="M20 40 C 40 50, 60 50, 80 60" />
+                        <path d="M40 15 C 45 45, 55 55, 60 85" />
+                        <path d="M15 60 C 45 55, 55 45, 85 40" />
+                        <path d="M50 10 C 20 40, 80 60, 50 90" />
+                        <path d="M90 50 C 60 20, 40 80, 10 50" stroke-width="3" />
+                    </svg>
+                </span>
+                Crochettt<span class="logo-charm">Charm</span>
             </a>
             
+            <!-- Center Navigation Menu -->
             <ul class="navbar-menu">
                 <li>
                     <a href="{{ url_for('home') }}" class="navbar-link {% if request.path == '/' %}active{% endif %}" id="navLinkHome">
@@ -29,25 +49,55 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ url_for('home') }}#categories" class="navbar-link" id="navLinkCategories">
+                        Categories
+                    </a>
+                </li>
+                <li>
                     <a href="{{ url_for('shop') }}" class="navbar-link {% if request.path == '/shop' %}active{% endif %}" id="navLinkShop">
-                        Shop Catalog
+                        Shop
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('admin') }}" class="navbar-link {% if request.path == '/admin' %}active{% endif %}" id="navLinkAdmin">
-                        Admin Panel
+                    <a href="{{ url_for('home') }}#about" class="navbar-link" id="navLinkAbout">
+                        About
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('cart') }}" class="navbar-cart {% if request.path == '/cart' %}active{% endif %}" id="navLinkCart">
-                        <i data-lucide="shopping-basket" style="width: 18px; height: 18px;"></i>
-                        <span>Basket</span>
-                        {% if cart_count() > 0 %}
-                            <span class="cart-count-badge" id="cartCountBadge">{{ cart_count() }}</span>
-                        {% endif %}
+                    <a href="{{ url_for('home') }}#custom-orders" class="navbar-link" id="navLinkCustom">
+                        Custom Orders
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('home') }}#contact" class="navbar-link" id="navLinkContact">
+                        Contact
                     </a>
                 </li>
             </ul>
+
+            <!-- Right Actions (Search, Wishlist, Cart) -->
+            <div class="navbar-actions">
+                <!-- Search bar -->
+                <form action="{{ url_for('shop') }}" method="GET" class="navbar-search-bar">
+                    <input type="text" name="search" placeholder="Search creations..." value="{{ search_query or '' }}">
+                    <button type="submit" style="background:none; border:none; display:flex; align-items:center;">
+                        <i data-lucide="search" style="width: 16px; height: 16px;"></i>
+                    </button>
+                </form>
+
+                <!-- Wishlist Icon -->
+                <a href="#" class="navbar-icon-btn" aria-label="Wishlist" onclick="alert('🌸 Your Wishlist is saved locally in this boutique simulation! 🌸'); return false;">
+                    <i data-lucide="heart" style="width: 20px; height: 20px;"></i>
+                </a>
+
+                <!-- Cart / Basket -->
+                <a href="{{ url_for('cart') }}" class="navbar-cart {% if request.path == '/cart' %}active{% endif %}" id="navLinkCart" style="position: relative;">
+                    <i data-lucide="shopping-bag" style="width: 20px; height: 20px;"></i>
+                    {% if cart_count() > 0 %}
+                        <span class="cart-count-badge" id="cartCountBadge">{{ cart_count() }}</span>
+                    {% endif %}
+                </a>
+            </div>
         </div>
     </nav>
 
@@ -59,11 +109,11 @@
                     <div class="flash-message flash-{{ category }}" id="flash_{{ loop.index }}">
                         <span class="flash-text">
                             {% if category == 'success' %}
-                                <i data-lucide="check-circle" style="display:inline-block; vertical-align:middle; margin-right:8px; width:18px; height:18px;"></i>
+                                <i data-lucide="check-circle-2" style="width: 18px; height: 18px; color: var(--accent-sage);"></i>
                             {% elif category == 'info' %}
-                                <i data-lucide="info" style="display:inline-block; vertical-align:middle; margin-right:8px; width:18px; height:18px;"></i>
+                                <i data-lucide="info" style="width: 18px; height: 18px; color: var(--accent-gold);"></i>
                             {% else %}
-                                <i data-lucide="alert-triangle" style="display:inline-block; vertical-align:middle; margin-right:8px; width:18px; height:18px;"></i>
+                                <i data-lucide="alert-circle" style="width: 18px; height: 18px; color: #E06D6D;"></i>
                             {% endif %}
                             {{ message }}
                         </span>
@@ -81,52 +131,77 @@
 
     <!-- Boutique Cozy Footer -->
     <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <h3>crochetttcharm 🧶</h3>
-                <p>"Every stitch tells a story of love, crafted by hand with premium yarn to bring joy and warmth to your special moments"!</p>
-                <div class="footer-socials">
-                    <a href="#" class="footer-social-link" aria-label="Instagram"><i data-lucide="instagram" style="width:18px; height:18px;"></i></a>
-                    <a href="#" class="footer-social-link" aria-label="Pinterest"><i data-lucide="pin" style="width:18px; height:18px;"></i></a>
-                    <a href="#" class="footer-social-link" aria-label="Facebook"><i data-lucide="facebook" style="width:18px; height:18px;"></i></a>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand Info -->
+                <div class="footer-brand-col">
+                    <h3>CrochetttCharm 🧶</h3>
+                    <p>Every stitch tells a story of love, crafted carefully by hand with premium organic yarn to bring endless warmth and cozy memories to your home.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="footer-social-link" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="Pinterest">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.23 2.63 7.85 6.33 9.3-.08-.79-.15-2 .03-2.86.17-.77 1.1-4.66 1.1-4.66s-.28-.56-.28-1.39c0-1.3.75-2.27 1.69-2.27.8 0 1.18.6 1.18 1.32 0 .8-.51 2-1.78 3.1-.22.18-.33.43-.3.7.06.34.29.62.61.71.74.22 1.63-.22 2.12-.96.67-1.02 1.03-2.43 1.03-4.11 0-3.59-2.58-6.1-6.27-6.1-4.28 0-6.79 3.21-6.79 6.52 0 1.29.5 2.68 1.12 3.43.1.13.12.24.09.37-.1.4-.3.12-.34.19-.05-.08-.18-.3-.24-.52-.66-2.07-.49-4.26.49-5.9 1.13-1.89 3.03-3.03 5.4-3.03 4.2 0 7.4 3.01 7.4 6.94 0 4.18-2.63 7.54-6.28 7.54-1.22 0-2.38-.64-2.77-1.39l-.76 2.89c-.27 1.06-1 2.39-1.5 3.19C9.37 21.8 10.65 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="TikTok">
+                            <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('home') }}">Boutique Home</a></li>
+                        <li><a href="{{ url_for('shop') }}">Handmade Catalogue</a></li>
+                        <li><a href="{{ url_for('home') }}#about">Our Story</a></li>
+                        <li><a href="{{ url_for('home') }}#custom-orders">Custom Orders</a></li>
+                        <li><a href="{{ url_for('admin') }}">Modify Prices</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Categories -->
+                <div>
+                    <h4 class="footer-title">Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('shop', category='Bouquet') }}">Floral Bouquets</a></li>
+                        <li><a href="{{ url_for('shop', category='Hampers') }}">Gift Hampers</a></li>
+                        <li><a href="{{ url_for('shop', category='Keychains') }}">Yarn Keychains</a></li>
+                        <li><a href="{{ url_for('shop', category='Bags') }}">Crochet Bags</a></li>
+                        <li><a href="{{ url_for('shop', category='Hair Accessories') }}">Hair Clips & Gajras</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter & Help -->
+                <div>
+                    <h4 class="footer-title">Newsletter</h4>
+                    <p class="footer-newsletter-p">Subscribe to get notifications on cozy new drops, crochet guides, and seasonal discounts!</p>
+                    <form class="newsletter-form" onsubmit="alert('✨ Thank you for subscribing to our newsletter! ✨'); this.reset(); return false;">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">
+                            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </form>
+                    <p style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.4rem;">
+                        <i data-lucide="help-circle" style="width: 14px; height: 14px; color: var(--accent-rose);"></i> Need custom details? hello@crochetttcharm.com
+                    </p>
                 </div>
             </div>
             
-            <div class="footer-column">
-                <h4 class="footer-column-title">Explore</h4>
-                <ul class="footer-links">
-                    <li><a href="{{ url_for('home') }}">Home Landing</a></li>
-                    <li><a href="{{ url_for('shop') }}">Handmade Shop</a></li>
-                    <li><a href="{{ url_for('cart') }}">Shopping Basket</a></li>
-                    <li><a href="{{ url_for('admin') }}">Modify Prices</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-column">
-                <h4 class="footer-column-title">Categories</h4>
-                <ul class="footer-links">
-                    <li><a href="{{ url_for('shop', category='Bouquets') }}">Floral Bouquets</a></li>
-                    <li><a href="{{ url_for('shop', category='Gajras') }}">Traditional Gajras</a></li>
-                    <li><a href="{{ url_for('shop', category='Hampers') }}">Gift Hampers</a></li>
-                    <li><a href="{{ url_for('shop', category='Accessories') }}">Charms & Keychains</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-column-info">
-                <h4 class="footer-column-title">Boutique Hours</h4>
-                <div class="footer-info">
-                    <p><i data-lucide="map-pin" style="width:16px; height:16px; color:var(--accent-rose);"></i> Handmade in Ahemdabad, India</p>
-                    <p><i data-lucide="clock" style="width:16px; height:16px; color:var(--accent-rose);"></i> Orders processed: 10AM - 8PM</p>
-                    <p><i data-lucide="mail" style="width:16px; height:16px; color:var(--accent-rose);"></i> hello@crochetttcharm.com</p>
+            <!-- Bottom copyright section -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-copy">
+                    &copy; 2026 CrochetttCharm. All rights reserved. Made for craft enthusiasts worldwide.
+                </div>
+                <div class="footer-bottom-copy">
+                    Crafted with <i data-lucide="heart" class="footer-bottom-heart" style="width: 14px; height: 14px; fill: var(--accent-rose);"></i> one stitch at a time.
                 </div>
             </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2026 crochetttcharm. All rights reserved. Made for craft enthusiasts worldwide.</p>
-            <p style="display: flex; align-items: center; gap: 0.25rem;">
-                Crafted with <i data-lucide="heart" style="width:14px; height:14px; fill:var(--accent-rose); color:var(--accent-rose);"></i> one loop at a time
-            </p>
         </div>
     </footer>
 

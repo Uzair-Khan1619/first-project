@@ -1,46 +1,98 @@
 {% extends 'base.html' %}
 
-{% block title %}Shop | crochetttcharm{% endblock %}
+{% block title %}Handmade Catalogue | CrochetttCharm{% endblock %}
 
 {% block content %}
-
-<section class="hero">
-    <h1>Our Handmade Collection ✨</h1>
-    <p>Premium crochet bouquets, bags, keychains & accessories.</p>
-</section>
-
-<div class="product-grid">
-
-    {% for product in products %}
-
-    <div class="product-card">
-
-        <img src="{{ product.image }}" alt="{{ product.name }}">
-
-        <div class="product-info">
-
-            <h2>{{ product.name }}</h2>
-
-            <p>{{ product.description }}</p>
-
-            <div class="price">
-                ₹{{ product.price }}
-            </div>
-
-            <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
-
-                <button class="btn">
-                    Add To Cart
-                </button>
-
-            </form>
-
+<section class="products-section" style="background-color: var(--bg-primary); padding: 5rem 0;">
+    <div class="container">
+        
+        <!-- Header Section -->
+        <div class="section-title-wrapper" style="margin-bottom: 4rem;">
+            <span class="section-subtitle-tag">Premium Catalog</span>
+            <h1 class="section-main-title">Handmade Catalogue</h1>
+            <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 1.05rem;">
+                Browse our collection of hand-crafted treasures. Filter by category or search to find the perfect cozy gift.
+            </p>
+        </div>
+        
+        <div class="section-divider" style="margin-top: 0; margin-bottom: 3.5rem;">
+            <span>🌸</span>
+        </div>
+        
+        <!-- Filters & Search Summary -->
+        <div class="product-filters" style="margin-bottom: 3rem;">
+            <!-- All Filter -->
+            <a href="{{ url_for('shop') }}" class="filter-btn {% if not selected_category %}active{% endif %}">
+                All Creations
+            </a>
+            
+            <!-- Category Filters dynamically loaded from Flask -->
+            {% for cat in categories %}
+                <a href="{{ url_for('shop', category=cat, search=search_query) }}" class="filter-btn {% if selected_category == cat %}active{% endif %}">
+                    {{ cat }}
+                </a>
+            {% endfor %}
         </div>
 
+        {% if search_query or selected_category %}
+            <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); padding: 1.25rem 2rem; border-radius: var(--radius-md); margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div style="font-size: 0.95rem; color: var(--text-secondary);">
+                    Showing results for
+                    {% if selected_category %}category <strong>"{{ selected_category }}"</strong>{% endif %}
+                    {% if search_query %}and search query <strong>"{{ search_query }}"</strong>{% endif %}
+                    ({{ products|length }} items found)
+                </div>
+                <a href="{{ url_for('shop') }}" class="btn btn-secondary btn-pill" style="padding: 0.4rem 1.2rem; font-size: 0.8rem;">
+                    <i data-lucide="x" style="width: 12px; height: 12px;"></i> Clear Filters
+                </a>
+            </div>
+        {% endif %}
+
+        <!-- Product Grid -->
+        {% if products %}
+            <div class="product-grid" id="catalogProductGrid">
+                {% for product in products %}
+                    <div class="product-card" id="product_{{ product.id }}">
+                        <!-- Wishlist heart button -->
+                        <div class="product-wishlist-btn">
+                            <div class="wishlist-heart" onclick="this.classList.toggle('active'); alert('🎀 Added to simulated favorites! 🎀')">
+                                <i data-lucide="heart" style="width: 18px; height: 18px;"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Image -->
+                        <div class="product-image-wrapper">
+                            <img src="{{ product.image }}" alt="{{ product.name }}">
+                        </div>
+                        
+                        <!-- Details -->
+                        <div class="product-info">
+                            <span class="product-category-tag">{{ product.category }}</span>
+                            <h3 class="product-title">{{ product.name }}</h3>
+                            <p class="product-desc">{{ product.description }}</p>
+                            
+                            <div class="product-footer">
+                                <span class="product-price">₹{{ "{:,}".format(product.price) }}</span>
+                                <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
+                                    <button class="product-add-btn" type="submit" aria-label="Add to basket" title="Add to Basket">
+                                        <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Cozy Empty State if search is blank -->
+            <div class="empty-state">
+                <span class="empty-state-icon">🧺</span>
+                <h2 class="empty-state-title">No creations match your search</h2>
+                <p class="empty-state-desc">Try modifying your query or selecting another category filter above.</p>
+                <a href="{{ url_for('shop') }}" class="btn btn-primary">Reset Filters</a>
+            </div>
+        {% endif %}
+
     </div>
-
-    {% endfor %}
-
-</div>
-
+</section>
 {% endblock %}
